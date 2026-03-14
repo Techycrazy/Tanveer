@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Tanveer | Online Shopping Site</title>
+  <meta name="description" content="Tanveer shopping homepage inspired by modern e-commerce experiences." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header class="top-strip">
+    <p>🎉 SuperCoin Zone | Free delivery on orders above ₹499 | 24x7 Support</p>
+  </header>
+
+  <header class="top-nav">
+    <div class="brand-wrap">
+      <h1 class="brand">Tanveer</h1>
+      <span class="tagline">Explore Plus</span>
+    </div>
+
+    <form class="search-box" id="search-form" aria-label="Search products">
+      <input id="search-input" type="text" placeholder="Search for products, brands and more" />
+    </form>
+
+    <nav class="actions" aria-label="Quick Actions">
+      <button class="nav-btn" id="login-btn" type="button">Login</button>
+      <button class="nav-btn cart-btn" id="cart-btn" type="button">Cart <span id="cart-count">0</span></button>
+      <button class="nav-btn" id="seller-btn" type="button">Become a Seller</button>
+      <div class="more-wrap">
+        <button class="nav-btn" id="more-btn" type="button" aria-expanded="false">More ▾</button>
+        <div class="dropdown" id="more-menu" hidden>
+          <button type="button" data-more="notification">Notifications</button>
+          <button type="button" data-more="help">24x7 Customer Care</button>
+          <button type="button" data-more="download">Download App</button>
+        </div>
+      </div>
+    </nav>
+  </header>
+
+  <main>
+    <section class="category-row" aria-label="Top categories">
+      <button type="button" class="category-btn active" data-category="all">✨ All</button>
+      <button type="button" class="category-btn" data-category="mobiles">📱 Mobiles</button>
+      <button type="button" class="category-btn" data-category="fashion">👕 Fashion</button>
+      <button type="button" class="category-btn" data-category="electronics">💻 Electronics</button>
+      <button type="button" class="category-btn" data-category="home">🏠 Home</button>
+      <button type="button" class="category-btn" data-category="beauty">🧴 Beauty</button>
+      <button type="button" class="category-btn" data-category="travel">✈️ Travel</button>
+      <button type="button" class="category-btn" data-category="toys">🧸 Toys</button>
+    </section>
+
+    <section class="hero-grid">
+      <article class="hero-card main">
+        <p class="label">Tanveer Big Billion Style Sale</p>
+        <h2>Up to 70% Off</h2>
+        <p>On smartphones, laptops, fashion, appliances & more.</p>
+        <button id="shop-now-btn" type="button">Shop Now</button>
+      </article>
+      <article class="hero-card side">
+        <p class="label">Limited Deal</p>
+        <h3>Wireless Audio</h3>
+        <p>From ₹999</p>
+      </article>
+      <article class="hero-card side">
+        <p class="label">New Arrivals</p>
+        <h3>Smart Home Gadgets</h3>
+        <p>Starting ₹1,499</p>
+      </article>
+    </section>
+
+    <section class="deals-strip" id="electronics-section">
+      <div class="section-title">
+        <h2>Best of Electronics</h2>
+        <button type="button" class="link-btn view-all" data-focus="electronics">View All</button>
+      </div>
+      <div class="product-grid">
+        <article class="product-card" data-category="mobiles electronics" data-name="5G Smartphones">
+          <div class="icon">📱</div>
+          <h3>5G Smartphones</h3>
+          <p class="price">From ₹11,999</p>
+          <small>Top Brands</small>
+          <button class="add-cart-btn" type="button">Add to Cart</button>
+        </article>
+        <article class="product-card" data-category="electronics" data-name="Noise Cancel Headphones">
+          <div class="icon">🎧</div>
+          <h3>Noise Cancel Headphones</h3>
+          <p class="price">Up to 60% Off</p>
+          <small>Best Sellers</small>
+          <button class="add-cart-btn" type="button">Add to Cart</button>
+        </article>
+        <article class="product-card" data-category="electronics" data-name="Smart Watches">
+          <div class="icon">⌚</div>
+          <h3>Smart Watches</h3>
+          <p class="price">From ₹1,199</p>
+          <small>Trendy Picks</small>
+          <button class="add-cart-btn" type="button">Add to Cart</button>
+        </article>
+        <article class="product-card" data-category="electronics" data-name="Action Cameras">
+          <div class="icon">📷</div>
+          <h3>Action Cameras</h3>
+          <p class="price">From ₹5,499</p>
+          <small>Adventure Ready</small>
+          <button class="add-cart-btn" type="button">Add to Cart</button>
+        </article>
+        <article class="product-card" data-category="electronics" data-name="Monitors">
+          <div class="icon">🖥️</div>
+          <h3>Monitors</h3>
+          <p class="price">From ₹7,999</p>
+          <small>Work & Play</small>
+          <button class="add-cart-btn" type="button">Add to Cart</button>
+        </article>
+      </div>
+    </section>
+
+    <section class="deals-strip" id="fashion-section">
+      <div class="section-title">
+        <h2>Fashion Top Deals</h2>
+        <button type="button" class="link-btn view-all" data-focus="fashion">View All</button>
+      </div>
+      <div class="product-grid">
+        <article class="product-card" data-category="fashion" data-name="Running Shoes">
+          <div class="icon">👟</div>
+          <h3>Running Shoes</h3>
+          <p class="price">Min 50% Off</p>
+          <small>Popular Brands</small>
+          <button class="add-cart-btn" type="button">Add to Cart</button>
+        </article>
+        <article class="product-card" data-category="fashion" data-name="Men's Jackets">
+          <div class="icon">🧥</div>
+          <h3>Men's Jackets</h3>
+          <p class="price">From ₹999</p>
+          <small>Winter Special</small>
+          <button class="add-cart-btn" type="button">Add to Cart</button>
+        </article>
+        <article class="product-card" data-category="fashion" data-name="Women Handbags">
+          <div class="icon">👜</div>
+          <h3>Women Handbags</h3>
+          <p class="price">From ₹799</p>
+          <small>Fresh Collection</small>
+          <button class="add-cart-btn" type="button">Add to Cart</button>
+        </article>
+        <article class="product-card" data-category="fashion" data-name="Ethnic Wear">
+          <div class="icon">👗</div>
+          <h3>Ethnic Wear</h3>
+          <p class="price">Up to 70% Off</p>
+          <small>Festive Look</small>
+          <button class="add-cart-btn" type="button">Add to Cart</button>
+        </article>
+        <article class="product-card" data-category="fashion" data-name="Sunglasses">
+          <div class="icon">🕶️</div>
+          <h3>Sunglasses</h3>
+          <p class="price">From ₹499</p>
+          <small>UV Protection</small>
+          <button class="add-cart-btn" type="button">Add to Cart</button>
+        </article>
+      </div>
+    </section>
+
+    <section class="banner-row">
+      <article>
+        <h3>Home Essentials</h3>
+        <p>Kitchen, decor, lighting and more at unbeatable prices.</p>
+      </article>
+      <article>
+        <h3>Travel Deals</h3>
+        <p>Book flights and hotels with instant cashback offers.</p>
+      </article>
+      <article>
+        <h3>Grocery Savings</h3>
+        <p>Daily essentials delivered to your doorstep.</p>
+      </article>
+    </section>
+  </main>
+
+  <aside class="cart-drawer" id="cart-drawer" hidden>
+    <div class="drawer-head">
+      <h3>Your Cart</h3>
+      <button type="button" id="close-cart">✕</button>
+    </div>
+    <ul id="cart-items"></ul>
+    <p class="empty-cart" id="empty-cart">Your cart is empty. Add products to get started.</p>
+  </aside>
+
+  <dialog id="login-dialog">
+    <form id="login-form" method="dialog">
+      <h3>Login to Tanveer</h3>
+      <input type="email" id="email" placeholder="Email" required />
+      <input type="password" id="password" placeholder="Password" required />
+      <div class="dialog-actions">
+        <button type="submit">Login</button>
+        <button type="button" id="cancel-login">Cancel</button>
+      </div>
+    </form>
+  </dialog>
+
+  <div class="toast" id="toast" aria-live="polite"></div>
+
+  <footer class="site-footer">
+    <p>© 2026 Tanveer. Inspired by modern marketplace design.</p>
+    <p>Made for demo purposes.</p>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>
