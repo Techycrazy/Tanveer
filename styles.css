@@ -1,0 +1,288 @@
+:root {
+  --brand-blue: #2874f0;
+  --brand-deep: #1c5fd0;
+  --bg: #f1f3f6;
+  --text: #212121;
+  --muted: #666;
+  --card: #ffffff;
+  --success: #2e7d32;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: 'Inter', sans-serif;
+  background: var(--bg);
+  color: var(--text);
+}
+
+.top-strip {
+  background: #f5f7ff;
+  color: #334;
+  padding: 0.55rem 1rem;
+  text-align: center;
+  font-size: 0.88rem;
+}
+
+.top-strip p {
+  margin: 0;
+}
+
+.top-nav {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 0.8rem 1.2rem;
+  background: var(--brand-blue);
+  color: white;
+  position: sticky;
+  top: 0;
+  z-index: 50;
+}
+
+.brand-wrap {
+  min-width: 130px;
+}
+
+.brand {
+  font-size: 1.7rem;
+  margin: 0;
+  font-weight: 800;
+  line-height: 1;
+}
+
+.tagline {
+  font-size: 0.75rem;
+  color: #ffe082;
+  font-style: italic;
+}
+
+.search-box {
+  flex: 1;
+}
+
+.search-box input {
+  width: 100%;
+  border: 0;
+  border-radius: 4px;
+  padding: 0.78rem 0.95rem;
+  font-size: 0.95rem;
+}
+
+.actions {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.actions a {
+  color: white;
+  text-decoration: none;
+  font-weight: 600;
+}
+
+main {
+  width: min(1280px, 95%);
+  margin: 1rem auto;
+  display: grid;
+  gap: 1rem;
+}
+
+.category-row {
+  display: grid;
+  grid-template-columns: repeat(8, minmax(90px, 1fr));
+  gap: 0.7rem;
+}
+
+.category-row article {
+  background: var(--card);
+  border-radius: 8px;
+  text-align: center;
+  padding: 0.9rem 0.4rem;
+  font-weight: 600;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.08);
+}
+
+.hero-grid {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  grid-template-rows: repeat(2, 1fr);
+  gap: 0.9rem;
+}
+
+.hero-card {
+  background: linear-gradient(135deg, #eaf2ff, #dce9ff);
+  border-radius: 12px;
+  padding: 1.2rem;
+}
+
+.hero-card.main {
+  grid-row: 1 / span 2;
+  background: linear-gradient(130deg, #d7e7ff, #ecf3ff);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.hero-card .label {
+  color: #355;
+  font-size: 0.85rem;
+  margin: 0;
+}
+
+.hero-card.main h2 {
+  margin: 0.5rem 0;
+  font-size: clamp(1.6rem, 3vw, 2.5rem);
+}
+
+.hero-card h3 {
+  margin: 0.4rem 0;
+}
+
+.hero-card button {
+  width: fit-content;
+  border: 0;
+  background: var(--brand-blue);
+  color: #fff;
+  font-weight: 700;
+  border-radius: 4px;
+  padding: 0.7rem 1.1rem;
+}
+
+.deals-strip {
+  background: var(--card);
+  border-radius: 12px;
+  padding: 1rem;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+}
+
+.section-title {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.8rem;
+}
+
+.section-title h2 {
+  margin: 0;
+  font-size: 1.2rem;
+}
+
+.section-title a {
+  text-decoration: none;
+  color: var(--brand-blue);
+  font-weight: 600;
+}
+
+.product-grid {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(130px, 1fr));
+  gap: 0.8rem;
+}
+
+.product-card {
+  border: 1px solid #edf1f8;
+  border-radius: 10px;
+  padding: 1rem 0.6rem;
+  text-align: center;
+}
+
+.product-card .icon {
+  font-size: 2rem;
+  margin-bottom: 0.5rem;
+}
+
+.product-card h3 {
+  font-size: 0.95rem;
+  margin: 0;
+}
+
+.price {
+  color: var(--success);
+  font-weight: 700;
+  margin: 0.45rem 0 0.2rem;
+}
+
+.product-card small {
+  color: var(--muted);
+}
+
+.banner-row {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0.8rem;
+}
+
+.banner-row article {
+  background: linear-gradient(150deg, #fff, #f4f8ff);
+  border-radius: 10px;
+  padding: 1rem;
+  border: 1px solid #e9eef9;
+}
+
+.banner-row h3 {
+  margin-top: 0;
+}
+
+.site-footer {
+  margin-top: 1rem;
+  text-align: center;
+  padding: 1.2rem;
+  color: var(--muted);
+}
+
+.site-footer p {
+  margin: 0.2rem;
+}
+
+@media (max-width: 1080px) {
+  .category-row {
+    grid-template-columns: repeat(4, minmax(90px, 1fr));
+  }
+
+  .hero-grid {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto;
+  }
+
+  .hero-card.main {
+    grid-row: auto;
+  }
+
+  .product-grid {
+    grid-template-columns: repeat(3, minmax(130px, 1fr));
+  }
+
+  .banner-row {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 700px) {
+  .top-nav {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .brand-wrap {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+  }
+
+  .actions {
+    justify-content: space-between;
+    gap: 0.7rem;
+  }
+
+  .category-row {
+    grid-template-columns: repeat(2, minmax(100px, 1fr));
+  }
+
+  .product-grid {
+    grid-template-columns: repeat(2, minmax(120px, 1fr));
+  }
+}
