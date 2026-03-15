@@ -5,20 +5,22 @@ const state = {
   user: null,
 };
 
+const storageKey = 'tanveer-storefront-state';
+const byId = (id) => document.getElementById(id);
 const productCards = Array.from(document.querySelectorAll('.product-card'));
 const categoryButtons = Array.from(document.querySelectorAll('.category-btn'));
-const cartDrawer = document.getElementById('cart-drawer');
-const cartList = document.getElementById('cart-items');
-const emptyCart = document.getElementById('empty-cart');
-const cartCount = document.getElementById('cart-count');
-const toast = document.getElementById('toast');
-const loginDialog = document.getElementById('login-dialog');
-const loginBtn = document.getElementById('login-btn');
-const loginForm = document.getElementById('login-form');
-const searchInput = document.getElementById('search-input');
-const moreBtn = document.getElementById('more-btn');
-const moreMenu = document.getElementById('more-menu');
-const storageKey = 'tanveer-storefront-state';
+const cartDrawer = byId('cart-drawer');
+const cartList = byId('cart-items');
+const emptyCart = byId('empty-cart');
+const cartCount = byId('cart-count');
+const toast = byId('toast');
+const loginDialog = byId('login-dialog');
+const loginBtn = byId('login-btn') || document.querySelector('.actions a[href="#"]');
+const loginForm = byId('login-form');
+const searchInput = byId('search-input') || document.querySelector('.search-box input');
+const searchForm = byId('search-form') || document.querySelector('.search-box');
+const moreBtn = byId('more-btn');
+const moreMenu = byId('more-menu');
 
 const saveState = () => {
   localStorage.setItem(storageKey, JSON.stringify({ cart: state.cart, user: state.user }));
@@ -27,14 +29,10 @@ const saveState = () => {
 const loadState = () => {
   try {
     const raw = localStorage.getItem(storageKey);
-    if (!raw) {
-      return;
-    }
+    if (!raw) return;
     const data = JSON.parse(raw);
-    if (Array.isArray(data.cart)) {
-      state.cart = data.cart;
-    }
-    if (typeof data.user === 'string' && data.user) {
+    if (Array.isArray(data.cart)) state.cart = data.cart;
+    if (typeof data.user === 'string' && data.user && loginBtn) {
       state.user = data.user;
       loginBtn.textContent = `Hi, ${state.user}`;
     }
@@ -44,6 +42,7 @@ const loadState = () => {
 };
 
 const showToast = (text) => {
+  if (!toast) return;
   toast.textContent = text;
   toast.classList.add('show');
   setTimeout(() => toast.classList.remove('show'), 1600);
@@ -60,6 +59,7 @@ const renderProducts = () => {
 };
 
 const renderCart = () => {
+  if (!cartList || !cartCount || !emptyCart) return;
   cartList.innerHTML = '';
   state.cart.forEach((name, index) => {
     const li = document.createElement('li');
@@ -79,37 +79,41 @@ categoryButtons.forEach((button) => {
   });
 });
 
-document.getElementById('search-form').addEventListener('submit', (event) => {
-  event.preventDefault();
-  state.query = searchInput.value.trim();
-  renderProducts();
-  showToast(state.query ? `Showing results for "${state.query}"` : 'Search cleared');
-});
+if (searchForm && searchInput) {
+  searchForm.addEventListener('submit', (event) => {
+    event.preventDefault();
+    state.query = searchInput.value.trim();
+    renderProducts();
+    showToast(state.query ? `Showing results for "${state.query}"` : 'Search cleared');
+  });
 
-searchInput.addEventListener('input', () => {
-  state.query = searchInput.value.trim();
-  renderProducts();
-});
+  searchInput.addEventListener('input', () => {
+    state.query = searchInput.value.trim();
+    renderProducts();
+  });
+}
 
 productCards.forEach((card) => {
   const productName = card.dataset.name;
-  card.querySelector('.add-cart-btn').addEventListener('click', () => {
+  const addButton = card.querySelector('.add-cart-btn');
+  if (!addButton) return;
+  addButton.addEventListener('click', () => {
     state.cart.push(productName);
     renderCart();
     showToast(`${productName} added to cart`);
   });
 });
 
-document.getElementById('cart-btn').addEventListener('click', () => {
-  cartDrawer.hidden = false;
+byId('cart-btn')?.addEventListener('click', () => {
+  if (cartDrawer) cartDrawer.hidden = false;
 });
 
-document.getElementById('close-cart').addEventListener('click', () => {
-  cartDrawer.hidden = true;
+byId('close-cart')?.addEventListener('click', () => {
+  if (cartDrawer) cartDrawer.hidden = true;
 });
 
-document.getElementById('shop-now-btn').addEventListener('click', () => {
-  document.getElementById('electronics-section').scrollIntoView({ behavior: 'smooth', block: 'start' });
+byId('shop-now-btn')?.addEventListener('click', () => {
+  byId('electronics-section')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
   state.activeCategory = 'electronics';
   categoryButtons.forEach((btn) => btn.classList.toggle('active', btn.dataset.category === 'electronics'));
   renderProducts();
@@ -125,61 +129,63 @@ document.querySelectorAll('.view-all').forEach((button) => {
   });
 });
 
-loginBtn.addEventListener('click', () => {
-  if (state.user) {
-    state.user = null;
-    loginBtn.textContent = 'Login';
+if (loginBtn && loginDialog && loginForm) {
+  loginBtn.addEventListener('click', () => {
+    if (state.user) {
+      state.user = null;
+      loginBtn.textContent = 'Login';
+      saveState();
+      showToast('Logged out');
+      return;
+    }
+    loginDialog.showModal();
+  });
+
+  byId('cancel-login')?.addEventListener('click', () => loginDialog.close());
+
+  loginForm.addEventListener('submit', (event) => {
+    event.preventDefault();
+    const email = byId('email')?.value.trim() || '';
+    state.user = email.split('@')[0] || 'User';
+    loginBtn.textContent = `Hi, ${state.user}`;
+    loginDialog.close();
     saveState();
-    showToast('Logged out');
-    return;
-  }
-  loginDialog.showModal();
-});
+    showToast(`Welcome ${state.user}`);
+  });
+}
 
-document.getElementById('cancel-login').addEventListener('click', () => {
-  loginDialog.close();
-});
-
-loginForm.addEventListener('submit', (event) => {
-  event.preventDefault();
-  const email = document.getElementById('email').value.trim();
-  state.user = email.split('@')[0] || 'User';
-  loginBtn.textContent = `Hi, ${state.user}`;
-  loginDialog.close();
-  saveState();
-  showToast(`Welcome ${state.user}`);
-});
-
-document.getElementById('clear-cart').addEventListener('click', () => {
+byId('clear-cart')?.addEventListener('click', () => {
   state.cart = [];
   renderCart();
   showToast('Cart cleared');
 });
 
-document.getElementById('seller-btn').addEventListener('click', () => {
+byId('seller-btn')?.addEventListener('click', () => {
   showToast('Seller onboarding starts in demo mode');
 });
 
-moreBtn.addEventListener('click', () => {
-  const open = moreBtn.getAttribute('aria-expanded') === 'true';
-  moreBtn.setAttribute('aria-expanded', String(!open));
-  moreMenu.hidden = open;
-});
+if (moreBtn && moreMenu) {
+  moreBtn.addEventListener('click', () => {
+    const open = moreBtn.getAttribute('aria-expanded') === 'true';
+    moreBtn.setAttribute('aria-expanded', String(!open));
+    moreMenu.hidden = open;
+  });
 
-moreMenu.addEventListener('click', (event) => {
-  if (event.target instanceof HTMLButtonElement) {
-    showToast(`${event.target.textContent} coming soon`);
-    moreMenu.hidden = true;
-    moreBtn.setAttribute('aria-expanded', 'false');
-  }
-});
+  moreMenu.addEventListener('click', (event) => {
+    if (event.target instanceof HTMLButtonElement) {
+      showToast(`${event.target.textContent} coming soon`);
+      moreMenu.hidden = true;
+      moreBtn.setAttribute('aria-expanded', 'false');
+    }
+  });
 
-document.addEventListener('click', (event) => {
-  if (!event.target.closest('.more-wrap') && !moreMenu.hidden) {
-    moreMenu.hidden = true;
-    moreBtn.setAttribute('aria-expanded', 'false');
-  }
-});
+  document.addEventListener('click', (event) => {
+    if (!event.target.closest('.more-wrap') && !moreMenu.hidden) {
+      moreMenu.hidden = true;
+      moreBtn.setAttribute('aria-expanded', 'false');
+    }
+  });
+}
 
 loadState();
 renderProducts();
