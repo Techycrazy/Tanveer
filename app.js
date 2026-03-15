@@ -18,6 +18,30 @@ const loginForm = document.getElementById('login-form');
 const searchInput = document.getElementById('search-input');
 const moreBtn = document.getElementById('more-btn');
 const moreMenu = document.getElementById('more-menu');
+const storageKey = 'tanveer-storefront-state';
+
+const saveState = () => {
+  localStorage.setItem(storageKey, JSON.stringify({ cart: state.cart, user: state.user }));
+};
+
+const loadState = () => {
+  try {
+    const raw = localStorage.getItem(storageKey);
+    if (!raw) {
+      return;
+    }
+    const data = JSON.parse(raw);
+    if (Array.isArray(data.cart)) {
+      state.cart = data.cart;
+    }
+    if (typeof data.user === 'string' && data.user) {
+      state.user = data.user;
+      loginBtn.textContent = `Hi, ${state.user}`;
+    }
+  } catch {
+    localStorage.removeItem(storageKey);
+  }
+};
 
 const showToast = (text) => {
   toast.textContent = text;
@@ -44,6 +68,7 @@ const renderCart = () => {
   });
   cartCount.textContent = state.cart.length;
   emptyCart.hidden = state.cart.length > 0;
+  saveState();
 };
 
 categoryButtons.forEach((button) => {
@@ -104,6 +129,7 @@ loginBtn.addEventListener('click', () => {
   if (state.user) {
     state.user = null;
     loginBtn.textContent = 'Login';
+    saveState();
     showToast('Logged out');
     return;
   }
@@ -120,7 +146,14 @@ loginForm.addEventListener('submit', (event) => {
   state.user = email.split('@')[0] || 'User';
   loginBtn.textContent = `Hi, ${state.user}`;
   loginDialog.close();
+  saveState();
   showToast(`Welcome ${state.user}`);
+});
+
+document.getElementById('clear-cart').addEventListener('click', () => {
+  state.cart = [];
+  renderCart();
+  showToast('Cart cleared');
 });
 
 document.getElementById('seller-btn').addEventListener('click', () => {
@@ -148,5 +181,6 @@ document.addEventListener('click', (event) => {
   }
 });
 
+loadState();
 renderProducts();
 renderCart();

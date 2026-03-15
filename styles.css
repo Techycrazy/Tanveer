@@ -163,6 +163,14 @@ main { width: min(1280px, 95%); margin: 1rem auto; display: grid; gap: 1rem; }
 .drawer-head button { border: 0; background: transparent; font-size: 1.25rem; cursor: pointer; }
 #cart-items { list-style: none; margin: 0.8rem 0; padding: 0; display: grid; gap: 0.45rem; }
 #cart-items li { background: #f6f8ff; padding: 0.65rem; border-radius: 6px; }
+.clear-cart-btn {
+  border: 0;
+  background: #eceff5;
+  border-radius: 6px;
+  font-weight: 600;
+  cursor: pointer;
+  padding: 0.55rem 0.7rem;
+}
 .empty-cart { color: var(--muted); }
 
 dialog { border: 0; border-radius: 10px; padding: 0; }
